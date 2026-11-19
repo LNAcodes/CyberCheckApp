@@ -4,9 +4,10 @@ import { Pressable, StyleSheet, Text, View } from "react-native";
 
 type QuizCardProps = {
   question: Question;
+  onNextQuestion: () => void;
 };
 
-export function QuizCard({ question }: QuizCardProps) {
+export function QuizCard({ question, onNextQuestion }: QuizCardProps) {
   // Teil 1: Gedächtnis und abgeleiteter Wert
   const [selectedOption, setSelectedOption] = useState<OptionLetter | null>(
     null,
@@ -109,6 +110,14 @@ export function QuizCard({ question }: QuizCardProps) {
           </Text>
           <Text style={styles.explanationHeading}>Warum?</Text>
           <Text style={styles.explanationText}>{question.explanation}</Text>
+
+          <Pressable
+            style={styles.checkButton}
+            onPress={onNextQuestion}
+            accessibilityRole="button"
+          >
+            <Text style={styles.checkButtonText}>Nächste Frage</Text>
+          </Pressable>
         </View>
       ) : null}
     </View>
