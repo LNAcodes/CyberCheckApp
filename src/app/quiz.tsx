@@ -1,3 +1,4 @@
+import { ProgressBar } from "@/components/ProgressBar";
 import { QuizCard } from "@/components/QuizCard";
 import { questions } from "@/data/questions";
 import { useState } from "react";
@@ -19,8 +20,15 @@ export default function Quizscreen() {
   }
 
   return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView contentContainerStyle={styles.content}>
+    <SafeAreaView style={styles.container} edges={["bottom"]}>
+      <ScrollView
+        contentContainerStyle={styles.content}
+        contentInsetAdjustmentBehavior="automatic"
+      >
+        <ProgressBar
+          currentNumber={currentQuestionIndex + 1}
+          totalNumber={questions.length}
+        />
         <QuizCard
           key={currentQuestion.id}
           question={currentQuestion}
