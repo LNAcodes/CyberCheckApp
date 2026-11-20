@@ -1,3 +1,4 @@
+import { colors } from "@/constants/colors";
 import type { OptionLetter, Question } from "@/types/quiz";
 import { useState } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
@@ -138,25 +139,25 @@ const styles = StyleSheet.create({
     marginTop: 12,
     padding: 12,
     borderWidth: 1,
-    borderColor: "#B8C1D6",
+    borderColor: colors.optionBorder,
     borderRadius: 12,
     justifyContent: "center",
   },
   optionSelected: {
     borderWidth: 3,
-    borderColor: "#1F4FD8",
-    backgroundColor: "#E6ECFA",
+    borderColor: colors.accent,
+    backgroundColor: colors.accentLight,
   },
   optionCorrect: {
     borderWidth: 3,
-    borderColor: "#6B3FA0",
-    backgroundColor: "#F1EAFA",
+    borderColor: colors.primary,
+    backgroundColor: colors.correctBackground,
   },
   optionWrong: {
     borderWidth: 3,
     borderStyle: "dashed",
-    borderColor: "#6B6457",
-    backgroundColor: "#F3F1EC",
+    borderColor: colors.neutralBorder,
+    backgroundColor: colors.neutralBackground,
   },
   optionText: {
     fontSize: 16,
@@ -164,32 +165,32 @@ const styles = StyleSheet.create({
   optionLabel: {
     fontSize: 13,
     fontWeight: "600",
-    color: "#111A2E",
+    color: colors.text,
     marginTop: 4,
   },
   checkButton: {
     minHeight: 56,
     marginTop: 24,
     borderRadius: 16,
-    backgroundColor: "#1F4FD8",
+    backgroundColor: colors.primary,
     alignItems: "center",
     justifyContent: "center",
   },
   checkButtonDisabled: {
-    backgroundColor: "#B8C1D6",
+    backgroundColor: colors.primaryBorder,
   },
   checkButtonText: {
     fontSize: 18,
     fontWeight: "600",
-    color: "#FFFFFF",
+    color: colors.textOnPrimary,
   },
   explanationBox: {
     marginTop: 24,
     padding: 16,
     borderRadius: 16,
     borderWidth: 1.5,
-    borderColor: "#D5DCEB",
-    backgroundColor: "#FFFFFF",
+    borderColor: colors.optionBorder,
+    backgroundColor: colors.background,
   },
   resultText: {
     fontSize: 17,
