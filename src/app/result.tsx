@@ -5,9 +5,10 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function ResultScreen() {
   const router = useRouter();
-  const { score, total } = useLocalSearchParams<{
+  const { score, total, setId } = useLocalSearchParams<{
     score: string;
     total: string;
+    setId?: string;
   }>();
   // Hinweis: Params kommen immer als Text an, auch wenn man Zahlen schickt.
 
@@ -16,7 +17,11 @@ export default function ResultScreen() {
   // Hinweis: Welche eingebaute Funktion macht aus "4" die Zahl 4?
 
   function playAgain() {
-    router.replace("/quiz");
+    if (setId) {
+      router.replace({ pathname: "/quiz", params: { setId: setId } });
+    } else {
+      router.replace("/quiz");
+    }
   }
 
   function goToStart() {

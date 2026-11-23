@@ -7,6 +7,7 @@ export default function RootLayout() {
         name="index"
         options={{ headerShown: false, title: "CyberCheck" }}
       />
+      <Stack.Screen name="sets" options={{ title: "Fragensets" }} />
       <Stack.Screen name="quiz" options={{ title: "Quiz" }} />
       <Stack.Screen name="result" options={{ headerShown: false }} />
     </Stack>
