@@ -5,10 +5,17 @@ import { Pressable, StyleSheet, Text, View } from "react-native";
 
 type QuizCardProps = {
   question: Question;
+  isLastQuestion: boolean;
   onNextQuestion: () => void;
+  onAnswerChecked: (isAnswerCorrect: boolean) => void;
 };
 
-export function QuizCard({ question, onNextQuestion }: QuizCardProps) {
+export function QuizCard({
+  question,
+  isLastQuestion,
+  onNextQuestion,
+  onAnswerChecked,
+}: QuizCardProps) {
   // Teil 1: Gedächtnis und abgeleiteter Wert
   const [selectedOption, setSelectedOption] = useState<OptionLetter | null>(
     null,
@@ -47,6 +54,11 @@ export function QuizCard({ question, onNextQuestion }: QuizCardProps) {
       return "Ausgewählt";
     }
     return null;
+  }
+
+  function checkAnswer() {
+    setIsRevealed(true);
+    onAnswerChecked(isAnswerCorrect);
   }
 
   return (
@@ -95,7 +107,7 @@ export function QuizCard({ question, onNextQuestion }: QuizCardProps) {
             styles.checkButton,
             selectedOption === null ? styles.checkButtonDisabled : null,
           ]}
-          onPress={() => setIsRevealed(true)}
+          onPress={checkAnswer}
           disabled={selectedOption === null}
           accessibilityRole="button"
         >
@@ -117,7 +129,9 @@ export function QuizCard({ question, onNextQuestion }: QuizCardProps) {
             onPress={onNextQuestion}
             accessibilityRole="button"
           >
-            <Text style={styles.checkButtonText}>Nächste Frage</Text>
+            <Text style={styles.checkButtonText}>
+              {isLastQuestion ? "Ergebnis ansehen" : "Nächste Frage"}
+            </Text>
           </Pressable>
         </View>
       ) : null}

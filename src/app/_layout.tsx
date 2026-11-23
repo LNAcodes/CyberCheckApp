@@ -8,6 +8,7 @@ export default function RootLayout() {
         options={{ headerShown: false, title: "CyberCheck" }}
       />
       <Stack.Screen name="quiz" options={{ title: "Quiz" }} />
+      <Stack.Screen name="result" options={{ headerShown: false }} />
     </Stack>
   );
 }

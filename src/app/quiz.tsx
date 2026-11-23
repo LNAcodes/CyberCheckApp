@@ -1,18 +1,31 @@
 import { ProgressBar } from "@/components/ProgressBar";
 import { QuizCard } from "@/components/QuizCard";
 import { questions } from "@/data/questions";
+import { useRouter } from "expo-router";
 import { useState } from "react";
 import { ScrollView, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Quizscreen() {
+  const router = useRouter();
+  const [score, setScore] = useState<number>(0);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
+
   const currentQuestion = questions[currentQuestionIndex];
+  const isLastQuestion = currentQuestionIndex === questions.length - 1;
+
+  function handleAnswerChecked(isAnswerCorrect: boolean) {
+    if (isAnswerCorrect) {
+      setScore(score + 1);
+    }
+  }
 
   function goToNextQuestion() {
-    const isLastQuestion = currentQuestionIndex === questions.length - 1;
-
     if (isLastQuestion) {
+      router.replace({
+        pathname: "/result",
+        params: { score: score, total: questions.length },
+      });
       return;
     }
 
@@ -32,7 +45,9 @@ export default function Quizscreen() {
         <QuizCard
           key={currentQuestion.id}
           question={currentQuestion}
+          isLastQuestion={isLastQuestion}
           onNextQuestion={goToNextQuestion}
+          onAnswerChecked={handleAnswerChecked}
         />
       </ScrollView>
     </SafeAreaView>
