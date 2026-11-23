@@ -1,6 +1,7 @@
+import { PrimaryButton } from "@/components/PrimaryButton";
 import { colors } from "@/constants/colors";
 import { useRouter } from "expo-router";
-import { Pressable, ScrollView, StyleSheet, Text } from "react-native";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Index() {
@@ -14,18 +15,21 @@ export default function Index() {
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={styles.content}>
         <Text style={styles.title} accessibilityRole="header">
-          CyberCheck
+          Cyber<Text style={styles.titleAccent}>Check</Text>
         </Text>
         <Text style={styles.subtitle}>
           Das Quiz zu deinen digitalen Rechten
         </Text>
-        <Pressable
-          style={styles.startButton}
-          onPress={startQuiz}
-          accessibilityRole="button"
-        >
-          <Text style={styles.startButtonText}>Quiz starten</Text>
-        </Pressable>
+
+        <View style={styles.buttonGroup}>
+          <PrimaryButton label="Quiz starten" onPress={startQuiz} />
+        </View>
+
+        <View style={styles.privacyNote}>
+          <Text style={styles.privacyNoteText}>
+            Kein Konto nötig. Deine Antworten bleiben auf deinem Gerät.
+          </Text>
+        </View>
       </ScrollView>
     </SafeAreaView>
   );
@@ -43,22 +47,27 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: colors.primary,
   },
+  titleAccent: {
+    color: colors.accent,
+  },
   subtitle: {
     fontSize: 16,
     marginTop: 8,
     color: colors.textLight,
   },
-  startButton: {
-    minHeight: 56,
+  buttonGroup: {
     marginTop: 48,
-    borderRadius: 16,
-    backgroundColor: colors.primary,
-    alignItems: "center",
-    justifyContent: "center",
+    gap: 12,
   },
-  startButtonText: {
-    fontSize: 18,
-    fontWeight: "600",
-    color: colors.textOnPrimary,
+  privacyNote: {
+    marginTop: "auto",
+    padding: 16,
+    borderRadius: 14,
+    backgroundColor: colors.primaryLight,
+  },
+  privacyNoteText: {
+    fontSize: 15,
+    lineHeight: 21,
+    color: colors.text,
   },
 });
