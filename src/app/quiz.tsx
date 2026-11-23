@@ -1,6 +1,8 @@
 import { ProgressBar } from "@/components/ProgressBar";
 import { QuizCard } from "@/components/QuizCard";
 import { questions } from "@/data/questions";
+import type { Question } from "@/types/quiz";
+import { shuffleQuestions } from "@/utils/shuffleQuestions";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import { ScrollView, StyleSheet } from "react-native";
@@ -8,11 +10,14 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Quizscreen() {
   const router = useRouter();
+  const [roundQuestions] = useState<Question[]>(() =>
+    shuffleQuestions(questions),
+  );
   const [score, setScore] = useState<number>(0);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
 
-  const currentQuestion = questions[currentQuestionIndex];
-  const isLastQuestion = currentQuestionIndex === questions.length - 1;
+  const currentQuestion = roundQuestions[currentQuestionIndex];
+  const isLastQuestion = currentQuestionIndex === roundQuestions.length - 1;
 
   function handleAnswerChecked(isAnswerCorrect: boolean) {
     if (isAnswerCorrect) {
@@ -24,7 +29,7 @@ export default function Quizscreen() {
     if (isLastQuestion) {
       router.replace({
         pathname: "/result",
-        params: { score: score, total: questions.length },
+        params: { score: score, total: roundQuestions.length },
       });
       return;
     }
@@ -40,7 +45,7 @@ export default function Quizscreen() {
       >
         <ProgressBar
           currentNumber={currentQuestionIndex + 1}
-          totalNumber={questions.length}
+          totalNumber={roundQuestions.length}
         />
         <QuizCard
           key={currentQuestion.id}
