@@ -1,4 +1,5 @@
 import { colors } from "@/constants/colors";
+import { getSetTitle } from "@/data/questionSets";
 import type { OptionLetter, Question } from "@/types/quiz";
 import { useState } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
@@ -63,6 +64,7 @@ export function QuizCard({
 
   return (
     <View style={styles.card}>
+      <Text style={styles.setLabel}>{getSetTitle(question.setId)}</Text>
       <Text style={styles.questionText}>{question.questionText}</Text>
       <Pressable
         style={[styles.option, getOptionStyle("A")]}
@@ -219,5 +221,19 @@ const styles = StyleSheet.create({
     fontSize: 15,
     marginTop: 4,
     lineHeight: 22,
+  },
+  setLabel: {
+    alignSelf: "flex-start",
+    paddingVertical: 4,
+    paddingHorizontal: 10,
+    marginBottom: 12,
+    borderRadius: 999,
+    borderWidth: 1.5,
+    borderColor: colors.accent,
+    backgroundColor: colors.accentLight,
+    color: colors.text,
+    fontSize: 13,
+    fontWeight: "600",
+    overflow: "hidden",
   },
 });

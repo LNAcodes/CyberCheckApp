@@ -1,6 +1,11 @@
 export type OptionLetter = "A" | "B" | "C";
 export type Difficulty = "BEGINNER" | "INTERMEDIATE" | "ADVANCED";
 
+export interface QuestionSet {
+  id: string;
+  title: string;
+  description: string;
+}
 export interface Question {
   id: string;
   questionText: string;
@@ -10,5 +15,5 @@ export interface Question {
   correctOption: OptionLetter;
   explanation: string;
   difficulty: Difficulty;
-  category: string;
+  setId: string;
 }

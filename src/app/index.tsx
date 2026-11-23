@@ -1,4 +1,5 @@
 import { PrimaryButton } from "@/components/PrimaryButton";
+import { SecondaryButton } from "@/components/SecondaryButton";
 import { colors } from "@/constants/colors";
 import { useRouter } from "expo-router";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
@@ -9,6 +10,10 @@ export default function Index() {
 
   function startQuiz() {
     router.push("/quiz");
+  }
+
+  function openSets() {
+    router.push("/sets");
   }
 
   return (
@@ -23,6 +28,7 @@ export default function Index() {
 
         <View style={styles.buttonGroup}>
           <PrimaryButton label="Quiz starten" onPress={startQuiz} />
+          <SecondaryButton label="Fragenset wählen" onPress={openSets} />
         </View>
 
         <View style={styles.privacyNote}>
