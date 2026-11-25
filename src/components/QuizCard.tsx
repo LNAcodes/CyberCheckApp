@@ -1,3 +1,4 @@
+import { MarkButtons } from "@/components/MarkButtons";
 import { colors } from "@/constants/colors";
 import { getSetTitle } from "@/data/questionSets";
 import type { OptionLetter, Question } from "@/types/quiz";
@@ -7,15 +8,23 @@ import { Pressable, StyleSheet, Text, View } from "react-native";
 type QuizCardProps = {
   question: Question;
   isLastQuestion: boolean;
+  isFavorite: boolean;
+  isForPractice: boolean;
   onNextQuestion: () => void;
   onAnswerChecked: (isAnswerCorrect: boolean) => void;
+  onToggleFavorite: () => void;
+  onTogglePractice: () => void;
 };
 
 export function QuizCard({
   question,
   isLastQuestion,
+  isFavorite,
+  isForPractice,
   onNextQuestion,
   onAnswerChecked,
+  onToggleFavorite,
+  onTogglePractice,
 }: QuizCardProps) {
   // Teil 1: Gedächtnis und abgeleiteter Wert
   const [selectedOption, setSelectedOption] = useState<OptionLetter | null>(
@@ -125,6 +134,13 @@ export function QuizCard({
           </Text>
           <Text style={styles.explanationHeading}>Warum?</Text>
           <Text style={styles.explanationText}>{question.explanation}</Text>
+
+          <MarkButtons
+            isFavorite={isFavorite}
+            isForPractice={isForPractice}
+            onToggleFavorite={onToggleFavorite}
+            onTogglePractice={onTogglePractice}
+          />
 
           <Pressable
             style={styles.checkButton}
