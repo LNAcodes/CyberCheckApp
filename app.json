@@ -33,7 +33,13 @@
           "imageWidth": 76
         }
       ],
-      "expo-web-browser"
+      "expo-web-browser",
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "CyberCheck nutzt die Kamera nur, um QR-Codes für Fragensets zu lesen. Es wird kein Bild gespeichert."
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true,

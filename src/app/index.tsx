@@ -20,6 +20,10 @@ export default function Index() {
     router.push("/collection");
   }
 
+  function openScan() {
+    router.push("/scan");
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={styles.content}>
@@ -33,6 +37,7 @@ export default function Index() {
         <View style={styles.buttonGroup}>
           <PrimaryButton label="Quiz starten" onPress={startQuiz} />
           <SecondaryButton label="Fragenset wählen" onPress={openSets} />
+          <SecondaryButton label="Fragenset scannen" onPress={openScan} />
           <SecondaryButton label="Meine Sammlung" onPress={openCollection} />
         </View>
 
