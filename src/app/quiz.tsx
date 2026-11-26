@@ -10,7 +10,6 @@ import {
 } from "@/storage/markedQuestions";
 import type { Question } from "@/types/quiz";
 import { shuffleQuestions } from "@/utils/shuffleQuestions";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import { ScrollView, StyleSheet, Text } from "react-native";
@@ -18,15 +17,27 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Quizscreen() {
   const router = useRouter();
-  const { setId } = useLocalSearchParams<{ setId?: string }>();
+  const { setId, questionIds } = useLocalSearchParams<{
+    setId?: string;
+    questionIds?: string;
+  }>();
 
   const [roundQuestions] = useState<Question[]>(() => {
+    if (questionIds) {
+      const chosenIds = questionIds.split(",");
+      const chosenQuestions = questions.filter((question) =>
+        chosenIds.includes(question.id),
+      );
+      return shuffleQuestions(chosenQuestions);
+    }
+
     if (setId) {
       const questionsOfThisSet = questions.filter(
         (question) => question.setId === setId,
       );
       return shuffleQuestions(questionsOfThisSet);
     }
+
     return shuffleQuestions(questions);
   });
 
@@ -36,7 +47,6 @@ export default function Quizscreen() {
   const [practiceIds, setPracticeIds] = useState<string[]>([]);
 
   useEffect(() => {
-    AsyncStorage.clear();
     async function loadStoredMarks() {
       const storedFavoriteIds = await loadMarkedQuestionIds(
         FAVORITES_STORAGE_KEY,
@@ -101,7 +111,16 @@ export default function Quizscreen() {
 
   function goToNextQuestion() {
     if (isLastQuestion) {
-      if (setId) {
+      if (questionIds) {
+        router.replace({
+          pathname: "/result",
+          params: {
+            score: score,
+            total: roundQuestions.length,
+            questionIds: questionIds,
+          },
+        });
+      } else if (setId) {
         router.replace({
           pathname: "/result",
           params: {
